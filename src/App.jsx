@@ -3,7 +3,7 @@ import RootLayout from "./Layout/RootLayout";
 import Home from "./page/Home";
 import DiamondMemberPage from "./page/DiamondMemberPage";
 import DetailMovie from "./page/DetailMovie";
-import Cinemas from "./page/cinema";
+import Cinemas from "./page/Cinema";
 import LocationDetail from "./page/LocationDetail";
 import Offers from "./page/Offers";
 import OffersDetail from "./page/OffersDetail";
