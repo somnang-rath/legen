@@ -51,7 +51,7 @@ const NavBar = () => {
               </Link>
             )}
           </li>
-          <li className="rounded-full px-3 py-2 border-[1px] border-gray-500 hover:border-gray-400 bg-orange-600 text-xl">
+          <li className="rounded-full flex justify-center items-center px-3 py-2 border-[1px] border-gray-500 hover:border-gray-400 bg-orange-600 text-xl">
             <Link to={"/"} className="flex items-center">
               <Bell size={20} />
             </Link>
