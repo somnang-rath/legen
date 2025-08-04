@@ -1,12 +1,16 @@
-import React, { useRef } from "react";
-import Movies from "../data/Movies";
+import React, { useContext, useRef } from "react";
+// import Movies from "../data/Movies";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import Offers from "../data/Offers";
+import { Data } from "../context/DataProvider";
 import { useTicket } from "../context/TicketProvider ";
 
 const Card = () => {
+  const { movies, loading } = useContext(Data);
   const { selectedDate, setSelectedDate } = useTicket();
+  const Movies = movies;
+  console.log("Movies", Movies);
   const generateDates = () => {
     const today = dayjs();
     return Array.from({ length: 14 }, (_, i) => today.add(i, "day"));
@@ -40,6 +44,7 @@ const Card = () => {
     const walk = (x - startX) * 2;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
+  if (loading) return <p>Loading...</p>;
   return (
     <div className="flex flex-col justify-center items-center px-60 pb-3  2xl:mx-auto top-0  mb-5 p-4">
       <div className="flex flex-col px-20 py-5 2xl:px-0 2xl:w-8/12 2xl:mx-auto space-y-4">
