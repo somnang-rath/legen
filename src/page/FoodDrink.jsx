@@ -19,7 +19,7 @@ const FoodDrink = () => {
               <img
                 src={FD}
                 alt={FD}
-                className="rounded-lg object-cover object-center "
+                className="h-full w-full rounded-lg object-cover object-center "
               />
             </div>
           </div>
