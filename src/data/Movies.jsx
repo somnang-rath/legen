@@ -18,7 +18,6 @@ import m17 from "../assets/img/movies/m17.jpg";
 import m18 from "../assets/img/movies/m18.jpg";
 import m19 from "../assets/img/movies/m19.png";
 import m20 from "../assets/img/movies/m20.jpg";
-
 const Movies = [
   {
     id: 1,

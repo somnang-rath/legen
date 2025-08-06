@@ -1,15 +1,17 @@
-import Movies from "../data/Movies";
+// import Movies from "../data/Movies";
 import { Calendar1, Book, Timer, EyeOff, IdCard } from "lucide-react";
 import { useParams } from "react-router-dom";
 import S_2D from "../assets/img/screen/S_2D.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ShoweTime from "../components/ShoweTime";
 import Detail from "../components/Detail";
+import { Data } from "../context/DataProvider";
 
 const DetailMovie = () => {
+  const { movies } = useContext(Data);
   const { id } = useParams();
   const [showe, setShowe] = useState(true);
-  const movie = Movies.find((e) => e.id == id);
+  const movie = movies.find((e) => e.id == id);
   return (
     <div className="transition-all duration-300">
       <div

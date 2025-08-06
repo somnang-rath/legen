@@ -1,10 +1,19 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import logo from "../assets/Legend-logo.png";
 import { NavLink, Link } from "react-router-dom";
 import { UserRoundSearch, ShieldCheck, UserRound, Bell } from "lucide-react";
 import links from "../data/LinkPage/LinkIcon";
 const NavBar = () => {
-  const storedUser = JSON.parse(localStorage.getItem("Users"));
+  const [storedUser, setStoredUser] = useState(null);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setStoredUser(JSON.parse(user));
+    } else {
+      setStoredUser(null);
+    }
+  }, []); // Runs once on component mount
   return (
     <nav className="px-30 fixed  w-full backdrop-blur-sm z-50">
       {/* Nav Bar  */}

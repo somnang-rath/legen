@@ -1,27 +1,26 @@
 import { useState } from "react";
 import logo from "../assets/Legend-logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate(); // 👈 for redirection
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const storedUser = JSON.parse(localStorage.getItem("Users"));
+    try {
+      const response = await api.post("/login", { email, password });
 
-    if (!storedUser) {
-      alert("No user found. Please sign up first.");
-      return;
-    }
+      localStorage.setItem("access_token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
 
-    if (storedUser.email === email && storedUser.password === password) {
       alert("Login successful!");
-      navigate("/"); // 👈 go to home page
-    } else {
-      alert("Invalid email or password.");
+      navigate("/");
+    } catch (error) {
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 

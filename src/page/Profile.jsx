@@ -2,26 +2,63 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/Legend-logo.png";
 import { PhoneIncoming, Mail } from "lucide-react";
+import axios from "axios";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("Users"));
-    if (!storedUser) {
-      alert("You must login first.");
+    const token = localStorage.getItem("access_token");
+    if (!token) {
       navigate("/login");
-    } else {
-      setUser(storedUser);
+      return;
     }
+    axios
+      .get("http://localhost:8000/api/user-profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      })
+      .catch((err) => {
+        console.error("Unauthorized:", err);
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("user");
+        navigate("/login");
+      });
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("Users");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
     navigate("/login");
   };
+  const handleAccount = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/users/${user.id}`);
 
+      // Clear token and redirect
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("user");
+      navigate("/login");
+      alert("Account deleted successfully.");
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert("Failed to delete account.");
+    }
+  };
+
+  const fullName = user ? user.name : "Guest User";
+
+  // Split by space
+  const nameParts = fullName.trim().split(" ");
+
+  // Assume first word is first name, last word is last name
+  const firstName = nameParts[0];
+  const lastName = nameParts[nameParts.length - 1];
   return (
     <div className="px-4 py-10 2xl:px-0 2xl:w-8/12 2xl:mx-auto mt-32">
       {user && (
@@ -31,7 +68,7 @@ const Profile = () => {
             <div className="w-full flex justify-between bg-black/40 px-5 py-5 rounded-lg">
               <div className="flex text-white space-x-3">
                 <img
-                  src={logo}
+                  src={user.profile || logo}
                   alt="img"
                   className="w-28 h-28 rounded-lg bg-white object-cover"
                 />
@@ -48,7 +85,7 @@ const Profile = () => {
                 </div>
                 <div className="flex text-white space-x-3">
                   <PhoneIncoming />
-                  <p>09365824</p>
+                  <p>{user.phone}</p>
                 </div>
               </div>
             </div>
@@ -62,7 +99,7 @@ const Profile = () => {
                 <div className="space-y-4">
                   <p className="text-md text-white">First Name</p>
                   <p className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
-                    First Name
+                    {firstName}
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -74,14 +111,14 @@ const Profile = () => {
                     </span>
                   </p>
                   <p className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
-                    6-6-2004
+                    {user.dob || "Not provided"}
                   </p>
                 </div>
               </div>
               <div className="space-y-4">
                 <p className="text-md text-white"> Last Name</p>
                 <p className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
-                  Last Name
+                  {lastName}
                 </p>
               </div>
             </div>
@@ -121,7 +158,7 @@ const Profile = () => {
               </div>
               <div className="flex justify-between mt-10">
                 <button
-                  onClick={handleLogout}
+                  onClick={handleAccount}
                   className=" text-red-600 px-4 py-2 rounded font-semibold"
                 >
                   Delete Account
