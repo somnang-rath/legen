@@ -14,7 +14,7 @@ const FoodDrink = () => {
         }}
       >
         <div className=" pt-30 backdrop-blur-sm">
-          <div className="px-20 2xl:px-0 2xl:w-8/12 2xl:mx-auto ">
+          <div className="2xl:px-0 2xl:w-8/12 2xl:mx-auto ">
             <div className="flex bg-gray-950 justify-between rounded-lg">
               <img
                 src={FD}
