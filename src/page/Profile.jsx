@@ -1,48 +1,29 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Data } from "../context/DataProvider";
 import logo from "../assets/Legend-logo.png";
 import { PhoneIncoming, Mail } from "lucide-react";
 import axios from "axios";
 
 const Profile = () => {
-  const [user, setUser] = useState(null);
+  const { user, logout, token, fetchUserProfile } = useContext(Data);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
     if (!token) {
       navigate("/login");
-      return;
+    } else if (!user) {
+      fetchUserProfile();
     }
-    axios
-      .get("http://localhost:8000/api/user-profile", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.error("Unauthorized:", err);
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("user");
-        navigate("/login");
-      });
-  }, [navigate]);
+  }, [token, user, fetchUserProfile, navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user");
-    navigate("/login");
-  };
   const handleAccount = async () => {
+    if (!user?.id) return;
     try {
-      await axios.delete(`http://localhost:8000/api/users/${user.id}`);
-
-      // Clear token and redirect
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("user");
+      await axios.delete(`http://localhost:8000/api/users/${user.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      logout();
       navigate("/login");
       alert("Account deleted successfully.");
     } catch (error) {
@@ -51,6 +32,7 @@ const Profile = () => {
     }
   };
 
+  if (!user) return null; // or loading spinner
   const fullName = user ? user.name : "Guest User";
 
   // Split by space
@@ -136,23 +118,23 @@ const Profile = () => {
                         (one set can’t be change)
                       </span>
                     </p>
-                    <p className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
+                    <div className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
                       <div className="flex text-white space-x-3">
                         <Mail />
                         <p>{user.email}</p>
                       </div>
-                    </p>
+                    </div>
                   </div>
                 </div>
                 <div>
                   <div className="space-y-4">
                     <p className="text-md text-white"> Phone Number</p>
-                    <p className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
+                    <div className="w-96 text-xl  bg-white/15 text-gray-400 px-3 py-3 rounded-lg">
                       <div className="flex text-white space-x-3">
                         <PhoneIncoming />
-                        <p>09365824</p>
+                        <p>{user.phone}</p>
                       </div>
-                    </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -164,7 +146,7 @@ const Profile = () => {
                   Delete Account
                 </button>
                 <button
-                  onClick={handleLogout}
+                  onClick={logout}
                   className="bg-red-500 text-white px-5 py-2 rounded font-semibold"
                 >
                   Logout

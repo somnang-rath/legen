@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
 import logo from "../assets/Legend-logo.png";
 import { NavLink, Link } from "react-router-dom";
+import { Data } from "../context/DataProvider";
 import { UserRoundSearch, ShieldCheck, UserRound, Bell } from "lucide-react";
 import links from "../data/LinkPage/LinkIcon";
 const NavBar = () => {
-  const [storedUser, setStoredUser] = useState(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      setStoredUser(JSON.parse(user));
-    } else {
-      setStoredUser(null);
-    }
-  }, []); // Runs once on component mount
+  const { user } = useContext(Data);
+  console.log("user:", user);
   return (
     <nav className="px-30 fixed  w-full backdrop-blur-sm z-50">
       {/* Nav Bar  */}
@@ -48,8 +41,12 @@ const NavBar = () => {
             </Link>
           </li>
           <li className="rounded-full px-3 py-2 border-[1px] border-gray-500 hover:border-gray-400 bg-orange-600 text-xl">
-            {storedUser ? (
-              <Link to={"/profile"} className="flex items-center">
+            {user ? (
+              <Link
+                to={"/profile"}
+                className="flex items-center"
+                onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
+              >
                 <UserRound size={20} />
                 Profile
               </Link>
