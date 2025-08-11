@@ -1,97 +1,60 @@
 import { useState } from "react";
 import logo from "../assets/Legend-logo.png";
-import { useNavigate } from "react-router-dom";
+import Profile from "../Auth/Profile";
+import Auth from "../Auth/Auth";
 
 function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [display, setDisplay] = useState(0);
   const [name, setName] = useState("");
-  const navigate = useNavigate();
-
-  const handleAddUser = (e) => {
-    e.preventDefault(); // prevent page reload
-
-    if (!email || !password || !name || !confirmPassword) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    const user = { name, email, password };
-    localStorage.setItem("Users", JSON.stringify(user));
-    alert("Successfully signed up!");
-
-    // Reset fields
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-    setName("");
-
-    navigate("/");
-  };
+  const [dob, setDob] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+  const [profile, setProfile] = useState(null); // file
+  const [preview, setPreview] = useState(null); // image preview
 
   return (
     <div className="w-screen h-screen space-y-5 text-xl lg:flex lg:justify-center lg:items-center lg:m-auto lg:space-x-10 transition-all duration-300">
       <div className="flex flex-col justify-center items-center text-center">
         <img src={logo} alt="" className="w-[200px]" />
         <div className="text-gray-300 font-medium mt-5">
-          Connect with friends and the world around you on Jobcenter.
+          គោលបំណងនៃការបង្កើតគេហទំព័រនេះ គឺដើម្បីសិក្សា នឹង ពង្រឹងជំនាញ នៃការងារ។
         </div>
       </div>
 
-      <div>
-        <form
-          onSubmit={handleAddUser}
-          className="p-10 max-w-md text-xl mx-auto mt-10 bg-black/30 text-center rounded-xl space-y-16"
-        >
-          <h1 className="text-3xl font-bold mb-4 text-white">Sign Up</h1>
-
-          <input
-            type="text"
-            placeholder="Full Name"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-8"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+      <div className="flex justify-center items-center">
+        {display === 0 ? (
+          <Profile
+            setDisplay={setDisplay}
+            name={name}
+            setName={setName}
+            dob={dob}
+            setDob={setDob}
+            address={address}
+            setAddress={setAddress}
+            phone={phone}
+            setPhone={setPhone}
+            profile={profile}
+            setProfile={setProfile}
+            preview={preview}
+            setPreview={setPreview}
           />
-
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-8"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+        ) : (
+          <Auth
+            setDisplay={setDisplay}
+            name={name}
+            setName={setName}
+            dob={dob}
+            setDob={setDob}
+            address={address}
+            setAddress={setAddress}
+            phone={phone}
+            setPhone={setPhone}
+            profile={profile}
+            setProfile={setProfile}
+            preview={preview}
+            setPreview={setPreview}
           />
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-8"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-3"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-
-          <div className="bg-gray-500 h-[1px]"></div>
-
-          <button
-            type="submit"
-            className="bg-teal-400 text-white px-4 py-2 font-bold text-2xl w-full rounded cursor-pointer"
-          >
-            Create
-          </button>
-        </form>
+        )}
       </div>
     </div>
   );

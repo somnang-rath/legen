@@ -92,6 +92,7 @@ const DataProvider = ({ children }) => {
         movies,
         loading,
         user,
+        setUser,
         userLoading,
         token,
         login,

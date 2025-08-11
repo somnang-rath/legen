@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Data } from "../context/DataProvider";
 import logo from "../assets/Legend-logo.png";
 import { PhoneIncoming, Mail } from "lucide-react";
-import axios from "axios";
+import api from "../api/api";
 
 const Profile = () => {
   const { user, logout, token, fetchUserProfile } = useContext(Data);
@@ -20,11 +20,11 @@ const Profile = () => {
   const handleAccount = async () => {
     if (!user?.id) return;
     try {
-      await axios.delete(`http://localhost:8000/api/users/${user.id}`, {
+      await api.delete(`/user/destroy`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       logout();
-      navigate("/login");
+      navigate("/");
       alert("Account deleted successfully.");
     } catch (error) {
       console.error("Delete error:", error);

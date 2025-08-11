@@ -38,17 +38,19 @@ function Login() {
           className="p-10 max-w-md text-xl mx-auto mt-10 bg-black/30 text-center rounded-xl space-y-5"
         >
           <h1 className="text-3xl font-bold mb-4 text-white">Login</h1>
+          <div className="w-full h-[1px] bg-amber-50 mask-x-from-50% mask-x-to-90% shadow-2xl"></div>
+
           <input
             type="email"
             placeholder="Email"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-3"
+            className="border px-4  py-2 text-xl w-full rounded focus:outline-teal-200 mb-5"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
-            className="border p-4 text-xl w-full rounded focus:outline-teal-200 mb-3"
+            className="border px-4  py-2 text-xl w-full rounded focus:outline-teal-200 mb-5"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
