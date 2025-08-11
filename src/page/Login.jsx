@@ -15,10 +15,10 @@ function Login() {
       const response = await api.post("/login", { email, password });
 
       localStorage.setItem("access_token", response.data.token);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
 
       alert("Login successful!");
-      navigate("/");
+      navigate("/profile");
+      window.location.reload();
     } catch (error) {
       alert(error.response?.data?.message || "Login failed");
     }

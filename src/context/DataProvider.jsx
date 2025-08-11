@@ -1,7 +1,6 @@
 // src/context/DataProvider.jsx
 import React, { createContext, useState, useEffect } from "react";
 import api from "../api/api.js";
-
 export const Data = createContext();
 
 const DataProvider = ({ children }) => {
@@ -20,19 +19,10 @@ const DataProvider = ({ children }) => {
       const res = await api.post("/login", { email, password });
       // from your JSON response:
       const { token, user } = res.data;
-
-      // Save token to state and localStorage
       setToken(token);
       localStorage.setItem("access_token", token);
-
-      // Set default authorization header for future requests
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
-      // Save user data in state
       setUser(user);
-
-      // Optionally fetch user profile again if needed
-      // await fetchUserProfile();
 
       return true;
     } catch (error) {
