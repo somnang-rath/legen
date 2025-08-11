@@ -1,6 +1,8 @@
 import { Timer, ArrowRight } from "lucide-react";
 import Movies from "../data/Movies";
+import { Data } from "../context/DataProvider";
 import SeatSelection from "./SeatSelection";
+import { useContext } from "react";
 
 const Seat = (props) => {
   const {
@@ -15,7 +17,8 @@ const Seat = (props) => {
     seates,
     setSeates,
   } = props;
-  const movie = Movies.find((e) => e.id.toString() == id);
+  const { movies } = useContext(Data);
+  const movie = movies.find((e) => e.id.toString() == id);
   return (
     <div className="pt-40">
       <div className="flex justify-center sm:flex-col sm:items-center  md:flex-col lg:flex-row  space-x-10">

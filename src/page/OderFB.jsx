@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Timer, ArrowRight } from "lucide-react";
 import p1 from "../assets/img/F&B/97101.jpg";
-import Movies from "../data/Movies";
+import { Data } from "../context/DataProvider";
 import { useTicket } from "../context/TicketProvider ";
 
 const comboList = [
@@ -13,6 +13,7 @@ const comboList = [
 ];
 
 const OderFB = (props) => {
+  const { movies } = useContext(Data);
   const { location } = useTicket();
   const [selectedCombos, setSelectedCombos] = useState({});
   const {
@@ -24,7 +25,7 @@ const OderFB = (props) => {
     seates,
     totalPriceSeates,
   } = props;
-  const movie = Movies.find((e) => e.id.toString() == id);
+  const movie = movies.find((e) => e.id.toString() == id);
   const handleAdd = (item) => {
     setSelectedCombos((prev) => ({
       ...prev,

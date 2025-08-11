@@ -1,9 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import Offers from "../data/Offers";
+import { Data } from "../context/DataProvider";
 const OffersDetail = () => {
   const { id } = useParams();
-  const offer = Offers.find((e) => e.id.toString() == id);
+  const { offers } = useContext(Data);
+  const offer = offers.find((e) => e.id.toString() == id);
+
   return (
     <div className="transition-all duration-300">
       <div className="px-20 py-5 2xl:px-0 2xl:w-8/12 2xl:mx-auto mt-30 space-y-8">
@@ -31,7 +33,7 @@ const OffersDetail = () => {
           className="rounded-lg w-full h-full"
         />
         <p className="text-gray-200 text-xl whitespace-pre-line ">
-          {offer.discreption}
+          {offer.description}
         </p>
       </div>
     </div>

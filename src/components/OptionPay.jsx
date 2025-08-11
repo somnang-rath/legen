@@ -1,8 +1,9 @@
 import { Timer, ArrowRight, Turtle } from "lucide-react";
-import Movies from "../data/Movies";
+import { Data } from "../context/DataProvider";
 import ChoosePaymentCard from "./ChoosePaymentCard";
 import { Link } from "react-router-dom";
 import { useTicket } from "../context/TicketProvider ";
+import { useContext } from "react";
 
 const OptionPay = (props) => {
   const {
@@ -13,8 +14,9 @@ const OptionPay = (props) => {
     totalPriceSeates,
     seates,
   } = props;
+  const { movies } = useContext(Data);
   const { location, selectedDate, selectedTime } = useTicket();
-  const movie = Movies.find((e) => e.id.toString() == id);
+  const movie = movies.find((e) => e.id.toString() == id);
   const handlePayment = () => {
     const ticket = {
       movieId: id,

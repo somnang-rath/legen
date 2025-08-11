@@ -6,7 +6,6 @@ import { UserRoundSearch, ShieldCheck, UserRound, Bell } from "lucide-react";
 import links from "../data/LinkPage/LinkIcon";
 const NavBar = () => {
   const { user } = useContext(Data);
-  console.log("user:", user);
   return (
     <nav className="px-30 fixed  w-full backdrop-blur-sm z-50">
       {/* Nav Bar  */}

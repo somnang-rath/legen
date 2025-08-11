@@ -10,7 +10,6 @@ const Card = () => {
   const { movies, loading } = useContext(Data);
   const { selectedDate, setSelectedDate } = useTicket();
   const Movies = movies;
-  console.log("Movies", Movies);
   const generateDates = () => {
     const today = dayjs();
     return Array.from({ length: 14 }, (_, i) => today.add(i, "day"));

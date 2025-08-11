@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Data } from "../context/DataProvider";
 import { MapPin } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import Locations from "../data/Locations";
 import sliderSid from "../assets/img/slider/sliderSid.png";
 import Card from "../components/Card";
-import Detail from "../components/Detail";
 import MapLocation from "../components/MapLocation";
 
 const LocationDetail = () => {
   const { id } = useParams();
+  const { locations } = useContext(Data);
   const [showe, setShowe] = useState(true);
-  const location = Locations.find((e) => e.id.toString() == id);
-  console.log(location);
+  const location = locations.find((e) => e.id.toString() == id);
   return (
     <div className="transition-all duration-300">
       <div

@@ -9,6 +9,8 @@ const DataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [userLoading, setUserLoading] = useState(false);
   const [user, setUser] = useState(null);
+  const [offers, setOffers] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [token, setToken] = useState(
     localStorage.getItem("access_token") || ""
   );
@@ -39,6 +41,30 @@ const DataProvider = ({ children }) => {
     }
   };
 
+  // Fetch locations
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const res = await api.get("locations", { withCredentials: true });
+        setLocations(res.data);
+      } catch (error) {
+        console.error("Failed to fetch locations:", error);
+      }
+    };
+    fetchLocations();
+  }, []);
+  // Fetch offers
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const res = await api.get("offers", { withCredentials: true });
+        setOffers(res.data);
+      } catch (error) {
+        console.error("Failed to fetch offers:", error);
+      }
+    };
+    fetchOffers();
+  }, []);
   // Fetch movies
   useEffect(() => {
     const fetchMovies = async () => {
@@ -98,6 +124,9 @@ const DataProvider = ({ children }) => {
         login,
         logout,
         fetchUserProfile,
+        offers,
+        setOffers,
+        locations,
       }}
     >
       {children}

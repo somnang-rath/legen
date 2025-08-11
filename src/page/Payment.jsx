@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import Movies from "../data/Movies";
+import { Data } from "../context/DataProvider";
 import Seat from "../components/Seat";
 import OderFB from "./OderFB";
 import OptionPay from "../components/OptionPay";
 const Payment = () => {
+  const { movies } = useContext(Data);
   const { id } = useParams();
-  const movie = Movies.find((e) => e.id.toString() == id);
+  const movie = movies.find((e) => e.id.toString() == id);
   const [price, setPrice] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [seates, setSeates] = useState("");
