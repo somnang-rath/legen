@@ -49,6 +49,7 @@ const ImageSlider = () => {
             </button>
           </div>
         </div>
+        <div className="w-full h-[1px] bg-amber-50 mask-x-from-50% mask-x-to-90% mt-5  shadow-2xl"></div>
       </div>
     </div>
   );

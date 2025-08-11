@@ -56,7 +56,7 @@ const Flooter = () => {
             </div>
           </div>
         </div>
-        <div className="border border-gray-400 mt-5"></div>
+        <div className="w-full h-[1px] bg-amber-50 mask-x-from-50% mask-x-to-90% mt-5  shadow-2xl"></div>
         <div className="text-white flex  justify-center items-center mt-3">
           <h1>All right reserved ® 2023</h1>
         </div>

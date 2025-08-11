@@ -4,9 +4,10 @@ import ChardFD from "../components/ChardFD";
 
 const FoodDrink = () => {
   return (
-    <div className="transition-all duration-300">
+    <div className=" transition-all duration-300">
       {" "}
       <div
+        className=""
         style={{
           backgroundImage: `url('${FD}')`,
           backgroundSize: "cover",
@@ -15,7 +16,7 @@ const FoodDrink = () => {
       >
         <div className=" pt-30 backdrop-blur-sm">
           <div className="2xl:px-0 2xl:w-8/12 2xl:mx-auto ">
-            <div className="flex bg-gray-950 justify-between rounded-lg">
+            <div className="h-[500px] flex bg-gray-950 justify-between rounded-lg">
               <img
                 src={FD}
                 alt={FD}
