@@ -1,4 +1,4 @@
-import logo from "../assets/Legend-logo.png";
+import logo from "../assets/img/Profile/profile.jpg";
 const Profile = (props) => {
   const {
     setDisplay,
@@ -14,6 +14,13 @@ const Profile = (props) => {
     preview,
     setPreview,
   } = props;
+  const handleCheck = () => {
+    // Handle checkbox state change
+    if (!name || !dob || !address || !phone || !preview) {
+      alert("Please fill in all fields.");
+      return false; // Prevent proceeding if any field is empty
+    }
+  };
 
   const handleImageChange = (e) => {
     e.preventDefault();
@@ -72,7 +79,11 @@ const Profile = (props) => {
       />
       <div className="w-full h-[1px] bg-amber-50 mask-x-from-50% mask-x-to-90% shadow-2xl"></div>
       <button
-        onClick={() => setDisplay(1)}
+        onClick={() => {
+          if (handleCheck()) {
+            setDisplay(1);
+          }
+        }}
         className="bg-teal-500 w-full p-2 rounded text-white font-bold"
       >
         Next

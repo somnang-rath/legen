@@ -141,13 +141,13 @@ const Profile = () => {
               <div className="flex justify-between mt-10">
                 <button
                   onClick={handleAccount}
-                  className=" text-red-600 px-4 py-2 rounded font-semibold"
+                  className=" text-red-600 px-4 py-2 rounded font-semibold hover:bg-red-400 transition-all duration-300 cursor-pointer"
                 >
                   Delete Account
                 </button>
                 <button
                   onClick={logout}
-                  className="bg-red-500 text-white px-5 py-2 rounded font-semibold"
+                  className="bg-red-500 text-white px-5 py-2 rounded font-semibold hover:bg-red-400 transition-all duration-300 cursor-pointer"
                 >
                   Logout
                 </button>

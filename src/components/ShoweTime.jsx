@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Volume2, MessageCircle } from "lucide-react";
 import S_2D from "../assets/img/screen/S_2D.png";
 import Locations from "../data/Locations";
 import { Link } from "react-router-dom";
 import { useTicket } from "../context/TicketProvider ";
+import { Data } from "../context/DataProvider";
 
 const ShoweTime = (props) => {
   const { id } = props;
+  const { user } = useContext(Data);
   const { setLocation, setSelectedTime } = useTicket();
   const [location, setLocations] = useState(Locations);
   const [selectedLocation, setSelectedLocation] = useState("All Locations");
@@ -65,7 +67,7 @@ const ShoweTime = (props) => {
 
                 {/* Time Buttons */}
                 <div className="space-x-4">
-                  <Link to={`/payment/${id}`}>
+                  <Link to={user ? `/payment/${id}` : `/login`}>
                     <button
                       onClick={() => handleSelectTime(e.namee, "08:00 PM")}
                       className="px-8 py-4 border rounded-full text-xl font-bold hover:bg-gray-400 transition-all duration-500 cursor-pointer"
@@ -73,7 +75,7 @@ const ShoweTime = (props) => {
                       08:00 PM
                     </button>
                   </Link>
-                  <Link to={`/payment/${id}`}>
+                  <Link to={user ? `/payment/${id}` : `/login`}>
                     <button
                       onClick={() => handleSelectTime(e.name, "10:00 PM")}
                       className="px-8 py-4 border rounded-full text-xl font-bold hover:bg-gray-400 transition-all duration-500 cursor-pointer"
