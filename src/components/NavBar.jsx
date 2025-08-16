@@ -29,7 +29,7 @@ const NavBar = () => {
 
         {/** Link Bar */}
         <ul className="hidden lg:flex px-1.5 space-x-3 text-white">
-          <li className="rounded-full px-3 py-2 border-[1px] border-gray-800 hover:border-gray-400 bg-orange-600 text-xl">
+          <li className="rounded-full px-3 py-2 border-[1px]  hover:border-gray-400 bg-orange-600 text-xl">
             <Link
               to={"ticket"}
               onClick={() => window.scrollTo({ top: 0, behavior: "instant" })}
@@ -39,7 +39,7 @@ const NavBar = () => {
               Ticket
             </Link>
           </li>
-          <li className="rounded-full px-3 py-2 border-[1px] border-gray-500 hover:border-gray-400 bg-orange-600 text-xl">
+          <li className="rounded-full px-3 py-2 border-[1px]  hover:border-gray-400 bg-orange-600 text-xl">
             {user ? (
               <Link
                 to={"/profile"}
@@ -56,7 +56,7 @@ const NavBar = () => {
               </Link>
             )}
           </li>
-          <li className="rounded-full flex justify-center items-center px-3 py-2 border-[1px] border-gray-500 hover:border-gray-400 bg-orange-600 text-xl">
+          <li className="rounded-full flex justify-center items-center px-3 py-2 border-[1px]  hover:border-gray-400 bg-orange-600 text-xl">
             <Link to={"/"} className="flex items-center">
               <Bell size={20} />
             </Link>
